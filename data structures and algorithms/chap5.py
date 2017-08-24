@@ -112,10 +112,9 @@ def insertion_sort(arr):
     return arr
 
 
-# R-5.1
-def experiment_list_length_origin(n):
+# R-5.1 C-5.13
+def experiment_list_length_origin(n, data=[]):
     import sys
-    data = []
     for k in range(n):
         a = len(data)
         b = sys.getsizeof(data)
@@ -123,10 +122,9 @@ def experiment_list_length_origin(n):
         data.append(None)
 
 
-# R-5.2
-def experiment_list_length_amend(n):
+# R-5.2 C-5.13
+def experiment_list_length_amend(n, data=[]):
     import sys
-    data = []
     a = 0
     b = 0
     for k in range(n):
@@ -242,8 +240,19 @@ def compute_data_set_sum1(data_set):
     return sum([j for i in data_set for j in i])
 
 
+# C-5.1
+# def
+
+
 if __name__ == '__main__':
-    print compute_data_set_sum1([[1, 2, 3], [2, 3, 4], [3, 4, 5]])
+    # print experiment_list_length_origin(27)
+    # print experiment_list_length_origin(27, [1, 2, 3])
+    print experiment_list_length_amend(29)
+    print experiment_list_length_amend(27, [1])
+    print experiment_list_length_amend(27, [1]*2)
+    print experiment_list_length_amend(27, [1]*3)
+    print experiment_list_length_amend(27, [1]*4)
+    # print compute_data_set_sum1([[1, 2, 3], [2, 3, 4], [3, 4, 5]])
     # print CaesarCipher(1)._forward
     # print CaesarCipher(1)._backward
     # for i in [100, 1000, 10000, 100000, 1000000]:
