@@ -112,6 +112,7 @@ def insertion_sort(arr):
     return arr
 
 
+# R-5.1
 def experiment_list_length_origin(n):
     import sys
     data = []
@@ -122,6 +123,7 @@ def experiment_list_length_origin(n):
         data.append(None)
 
 
+# R-5.2
 def experiment_list_length_amend(n):
     import sys
     data = []
@@ -136,6 +138,7 @@ def experiment_list_length_amend(n):
         data.append(None)
 
 
+# R-5.3
 def experiment_list_length_amend1(n):
     import sys
     data = [None] * n
@@ -150,6 +153,7 @@ def experiment_list_length_amend1(n):
         data.pop()
 
 
+# R-5.4 R-5.6
 import ctypes
 
 
@@ -187,7 +191,7 @@ class DynamicArray(object):
 
     def insert(self, k, value):
         if self._n == self._capacity:
-            B = self._make_array(2*self._capacity)
+            B = self._make_array(2 * self._capacity)
             for j in range(k):
                 B[j] = self._A[j]
                 self._A = B
@@ -197,8 +201,55 @@ class DynamicArray(object):
         self._n += 1
 
 
+# R-5.7
+def find_repeated_int(arr):
+    temp = 0
+    for i in arr:
+        if i == temp:
+            return i
+        temp = i
+
+
+# R-5.8
+def compute(n):
+    from time import time
+    start = time()
+    data = [None] * n
+    for i in range(n):
+        data.pop()
+    end = time()
+    return (end - start) / n
+
+
+# R-5.10
+class CaesarCipher(object):
+    def __init__(self, shift):
+        self._forward = ''.join([chr((k + shift) % 26 + ord('A')) for k in range(26)])
+        self._backward = ''.join([chr((k - shift) % 26 + ord('A')) for k in range(26)])
+
+
+# R-5.11
+def compute_data_set_sum(data_set):
+    sum = 0
+    for i in data_set:
+        for j in i:
+            sum += j
+    return sum
+
+
+# R-5.12
+def compute_data_set_sum1(data_set):
+    return sum([j for i in data_set for j in i])
+
+
 if __name__ == '__main__':
+    print compute_data_set_sum1([[1, 2, 3], [2, 3, 4], [3, 4, 5]])
+    # print CaesarCipher(1)._forward
+    # print CaesarCipher(1)._backward
+    # for i in [100, 1000, 10000, 100000, 1000000]:
+    #     print compute(i)
+    # print find_repeated_int([1, 2, 3, 3, 4, 5])
     # experiment_list_length_amend1(27)
-    experiment_list_length_amend(27)
+    # experiment_list_length_amend(27)
     # experiment_list_length_origin(27)
     # print insertion_sort([3, 2, 5, 1])
