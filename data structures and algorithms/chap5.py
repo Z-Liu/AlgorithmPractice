@@ -46,6 +46,15 @@ class DynamicArray:
                 return
         raise ValueError('value not found')
 
+    # C-5.16
+    def pop(self):
+        ret = self._A[self._n - 1]
+        self._A[self._n - 1] = None
+        self._n -= 1
+        if self._n < self._capacity / 4:
+            self._resize(self._capacity / 2)
+        return ret
+
 
 from time import time
 
@@ -240,25 +249,34 @@ def compute_data_set_sum1(data_set):
     return sum([j for i in data_set for j in i])
 
 
-# C-5.1
-# def
+# C-5.14
+def shuffle(arr):
+    from random import randrange
+    n = len(arr)
+    i = 0
+    while i < n:
+        m = randrange(n)
+        arr[i], arr[m] = arr[m], arr[i]
+        i += 1
+    return arr
 
 
 if __name__ == '__main__':
-    # print experiment_list_length_origin(27)
-    # print experiment_list_length_origin(27, [1, 2, 3])
-    print experiment_list_length_amend(29)
-    print experiment_list_length_amend(27, [1])
-    print experiment_list_length_amend(27, [1]*2)
-    print experiment_list_length_amend(27, [1]*3)
-    print experiment_list_length_amend(27, [1]*4)
-    # print compute_data_set_sum1([[1, 2, 3], [2, 3, 4], [3, 4, 5]])
-    # print CaesarCipher(1)._forward
-    # print CaesarCipher(1)._backward
-    # for i in [100, 1000, 10000, 100000, 1000000]:
-    #     print compute(i)
-    # print find_repeated_int([1, 2, 3, 3, 4, 5])
-    # experiment_list_length_amend1(27)
-    # experiment_list_length_amend(27)
-    # experiment_list_length_origin(27)
-    # print insertion_sort([3, 2, 5, 1])
+    print shuffle([1, 2, 3])
+# print experiment_list_length_origin(27)
+# print experiment_list_length_origin(27, [1, 2, 3])
+# print experiment_list_length_amend(29)
+# print experiment_list_length_amend(27, [1])
+# print experiment_list_length_amend(27, [1] * 2)
+# print experiment_list_length_amend(27, [1] * 3)
+# print experiment_list_length_amend(27, [1] * 4)
+# print compute_data_set_sum1([[1, 2, 3], [2, 3, 4], [3, 4, 5]])
+# print CaesarCipher(1)._forward
+# print CaesarCipher(1)._backward
+# for i in [100, 1000, 10000, 100000, 1000000]:
+#     print compute(i)
+# print find_repeated_int([1, 2, 3, 3, 4, 5])
+# experiment_list_length_amend1(27)
+# experiment_list_length_amend(27)
+# experiment_list_length_origin(27)
+# print insertion_sort([3, 2, 5, 1])
