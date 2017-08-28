@@ -81,17 +81,37 @@ class Solution3(object):
         return res
 
 
+# https://leetcode.com/problems/move-zeroes/description/
+class Solution4(object):
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        n = len(nums)
+        temp1 = temp2 = 0
+        while temp1 < n and temp2 < n:
+            while temp2 < n - 1 and nums[temp2] == 0:
+                temp2 += 1
+            nums[temp1], nums[temp2] = nums[temp2], nums[temp1]
+            temp1 += 1
+            temp2 += 1
+
+
 if __name__ == '__main__':
-    print Solution3().findDisappearedNumbers([4, 3, 2, 7, 8, 2, 3, 1])  # 5,6
-    print Solution3().findDisappearedNumbers([1, 3, 2, 7, 8, 2, 3, 1])  # 4,5,6
-    print Solution3().findDisappearedNumbers([1, 3, 2, 7, 8, 5, 5, 1])  # 4,6
-    print Solution3().findDisappearedNumbers([3, 3, 3])
-    print Solution3().findDisappearedNumbers([1, 1, 1])
-    print Solution3().findDisappearedNumbers([2, 2, 2])
-    # print Solution1().removeDuplicates([0, 0])
-    # print Solution1().removeDuplicates([1, 1, 2, 2])
-    # print Solution1().removeDuplicates1([0, 0])
-    # print Solution1().removeDuplicates1([1, 1, 2, 2])
-    # print Solution().twoSum([3, 2, 4], 6)
-    # print Solution().twoSum1([3, 2, 4], 6)
-    # print Solution().twoSum2([3, 2, 4], 6)
+    print Solution4().moveZeroes([0])
+    print Solution4().moveZeroes([1, 0])
+    print Solution4().moveZeroes([0, 1, 0, 3, 12])
+# print Solution3().findDisappearedNumbers([4, 3, 2, 7, 8, 2, 3, 1])  # 5,6
+# print Solution3().findDisappearedNumbers([1, 3, 2, 7, 8, 2, 3, 1])  # 4,5,6
+# print Solution3().findDisappearedNumbers([1, 3, 2, 7, 8, 5, 5, 1])  # 4,6
+# print Solution3().findDisappearedNumbers([3, 3, 3])
+# print Solution3().findDisappearedNumbers([1, 1, 1])
+# print Solution3().findDisappearedNumbers([2, 2, 2])
+# print Solution1().removeDuplicates([0, 0])
+# print Solution1().removeDuplicates([1, 1, 2, 2])
+# print Solution1().removeDuplicates1([0, 0])
+# print Solution1().removeDuplicates1([1, 1, 2, 2])
+# print Solution().twoSum([3, 2, 4], 6)
+# print Solution().twoSum1([3, 2, 4], 6)
+# print Solution().twoSum2([3, 2, 4], 6)
