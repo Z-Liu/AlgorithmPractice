@@ -98,10 +98,30 @@ class Solution4(object):
             temp2 += 1
 
 
+# https://leetcode.com/problems/majority-element/description/
+class Solution5(object):
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        ref_dict = {}
+        n = len(nums)
+        for i in nums:
+            if i in ref_dict:
+                ref_dict[i] += 1
+            else:
+                ref_dict[i] = 1
+            if ref_dict[i] > (n / 2):
+                return i
+
+
 if __name__ == '__main__':
-    print Solution4().moveZeroes([0])
-    print Solution4().moveZeroes([1, 0])
-    print Solution4().moveZeroes([0, 1, 0, 3, 12])
+    print Solution5().majorityElement([1, 1, 1, 2])
+    print Solution5().majorityElement([1])
+    # print Solution4().moveZeroes([0])
+    # print Solution4().moveZeroes([1, 0])
+    # print Solution4().moveZeroes([0, 1, 0, 3, 12])
 # print Solution3().findDisappearedNumbers([4, 3, 2, 7, 8, 2, 3, 1])  # 5,6
 # print Solution3().findDisappearedNumbers([1, 3, 2, 7, 8, 2, 3, 1])  # 4,5,6
 # print Solution3().findDisappearedNumbers([1, 3, 2, 7, 8, 5, 5, 1])  # 4,6
