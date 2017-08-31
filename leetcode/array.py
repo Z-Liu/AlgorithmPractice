@@ -157,19 +157,45 @@ class Solution6(object):
         return max_profit
 
 
+# https://leetcode.com/problems/maximum-subarray/description/
+class Solution7(object):
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        import sys
+        min_former_array_sum = 0
+        max_array_sum = -sys.maxint - 1
+        current_sum = 0
+        for i in nums:
+            current_sum += i
+            if current_sum - min_former_array_sum > max_array_sum:
+                max_array_sum = current_sum - min_former_array_sum
+            if current_sum < min_former_array_sum:
+                min_former_array_sum = current_sum
+        return max_array_sum
+
+
 if __name__ == '__main__':
-    print Solution6().maxProfit1([7, 1, 5, 3, 6, 4])  # 5
-    print Solution6().maxProfit1([1, 2])  # 1
-    print Solution6().maxProfit1([])  # 0
-    print Solution6().maxProfit1([7, 6, 4, 3, 1])
-    print Solution6().maxProfit1([3, 2, 6, 5, 0, 3])
-    print Solution6().maxProfit1([3, 4, 6, 0, 3, 7, 5, 8, 2, 9, 1, 6, 6, 2])
-    print Solution6().maxProfit1([2, 2, 5])
-    # print Solution5().majorityElement([1, 1, 1, 2])
-    # print Solution5().majorityElement([1])
-    # print Solution4().moveZeroes([0])
-    # print Solution4().moveZeroes([1, 0])
-    # print Solution4().moveZeroes([0, 1, 0, 3, 12])
+    print Solution7().maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])
+    print Solution7().maxSubArray([1])
+    print Solution7().maxSubArray([-2, 1])
+    print Solution7().maxSubArray([-2, -2])
+    print Solution7().maxSubArray([-4, -2, -1])
+    print Solution7().maxSubArray([0, -3, 1, 1])
+# print Solution6().maxProfit1([7, 1, 5, 3, 6, 4])  # 5
+# print Solution6().maxProfit1([1, 2])  # 1
+# print Solution6().maxProfit1([])  # 0
+# print Solution6().maxProfit1([7, 6, 4, 3, 1])
+# print Solution6().maxProfit1([3, 2, 6, 5, 0, 3])
+# print Solution6().maxProfit1([3, 4, 6, 0, 3, 7, 5, 8, 2, 9, 1, 6, 6, 2])
+# print Solution6().maxProfit1([2, 2, 5])
+# print Solution5().majorityElement([1, 1, 1, 2])
+# print Solution5().majorityElement([1])
+# print Solution4().moveZeroes([0])
+# print Solution4().moveZeroes([1, 0])
+# print Solution4().moveZeroes([0, 1, 0, 3, 12])
 # print Solution3().findDisappearedNumbers([4, 3, 2, 7, 8, 2, 3, 1])  # 5,6
 # print Solution3().findDisappearedNumbers([1, 3, 2, 7, 8, 2, 3, 1])  # 4,5,6
 # print Solution3().findDisappearedNumbers([1, 3, 2, 7, 8, 5, 5, 1])  # 4,6
