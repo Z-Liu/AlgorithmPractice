@@ -116,9 +116,57 @@ class Solution5(object):
                 return i
 
 
+# https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/
+class Solution6(object):
+    def maxProfit(self, prices):
+        """
+        :rtype: int
+        """
+        bottom_numbers = {}
+        top_numbers = {}
+        candidate = []
+        n = len(prices)
+        if n <= 1:
+            return 0
+        if prices[0] <= prices[1]:
+            bottom_numbers[0] = prices[0]
+        for i in range(1, n - 1):
+            if prices[i - 1] >= prices[i] < prices[i + 1] or prices[i - 1] > prices[i] <= prices[i + 1]:
+                bottom_numbers[i] = prices[i]
+            if prices[i - 1] <= prices[i] > prices[i + 1] or prices[i - 1] < prices[i] >= prices[i + 1]:
+                top_numbers[i] = prices[i]
+        if prices[n - 2] < prices[n - 1]:
+            top_numbers[n - 1] = prices[n - 1]
+        if not bottom_numbers or not top_numbers:
+            return 0
+        for i in bottom_numbers:
+            temp = [top_numbers[j] for j in top_numbers if j > i]
+            if temp:
+                candidate.append(max(temp) - bottom_numbers[i])
+        return max(candidate)
+
+    def maxProfit1(self, prices):
+        import sys
+        max_profit = 0
+        min_price = sys.maxint
+        for i in prices:
+            if i < min_price:
+                min_price = i
+            elif i - min_price > max_profit:
+                max_profit = i - min_price
+        return max_profit
+
+
 if __name__ == '__main__':
-    print Solution5().majorityElement([1, 1, 1, 2])
-    print Solution5().majorityElement([1])
+    print Solution6().maxProfit1([7, 1, 5, 3, 6, 4])  # 5
+    print Solution6().maxProfit1([1, 2])  # 1
+    print Solution6().maxProfit1([])  # 0
+    print Solution6().maxProfit1([7, 6, 4, 3, 1])
+    print Solution6().maxProfit1([3, 2, 6, 5, 0, 3])
+    print Solution6().maxProfit1([3, 4, 6, 0, 3, 7, 5, 8, 2, 9, 1, 6, 6, 2])
+    print Solution6().maxProfit1([2, 2, 5])
+    # print Solution5().majorityElement([1, 1, 1, 2])
+    # print Solution5().majorityElement([1])
     # print Solution4().moveZeroes([0])
     # print Solution4().moveZeroes([1, 0])
     # print Solution4().moveZeroes([0, 1, 0, 3, 12])
