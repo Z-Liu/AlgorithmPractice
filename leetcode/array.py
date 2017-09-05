@@ -21,7 +21,7 @@ class Solution(object):
 
     def twoSum2(self, nums, target):
         nums_dict = dict()
-        for i, num in enumerate(nums):
+        for i, num in enumerastartte(nums):
             if nums_dict.get(target - num) and i != nums_dict[target - num]:
                 return [nums_dict[target - num], i]
             nums_dict[num] = i
@@ -63,7 +63,8 @@ class Solution3(object):
 
         def exchange(arr, current_num, current_pos):
             if arr[current_num - 1] != arr[current_pos]:
-                arr[current_num - 1], arr[current_pos] = arr[current_pos], arr[current_num - 1]
+                arr[current_num - 1], arr[current_pos] = arr[current_pos], arr[
+                    current_num - 1]
                 current_num = arr[current_pos]
                 exchange(arr, current_num, current_pos)
             else:
@@ -131,9 +132,11 @@ class Solution6(object):
         if prices[0] <= prices[1]:
             bottom_numbers[0] = prices[0]
         for i in range(1, n - 1):
-            if prices[i - 1] >= prices[i] < prices[i + 1] or prices[i - 1] > prices[i] <= prices[i + 1]:
+            if prices[i - 1] >= prices[i] < prices[i + 1] or prices[
+                        i - 1] > prices[i] <= prices[i + 1]:
                 bottom_numbers[i] = prices[i]
-            if prices[i - 1] <= prices[i] > prices[i + 1] or prices[i - 1] < prices[i] >= prices[i + 1]:
+            if prices[i - 1] <= prices[i] > prices[i + 1] or prices[
+                        i - 1] < prices[i] >= prices[i + 1]:
                 top_numbers[i] = prices[i]
         if prices[n - 2] < prices[n - 1]:
             top_numbers[n - 1] = prices[n - 1]
@@ -177,13 +180,87 @@ class Solution7(object):
         return max_array_sum
 
 
+# https://leetcode.com/problems/shortest-unsorted-continuous-subarray/description/
+class Solution8(object):
+    def findUnsortedSubarray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        i = 0
+        n = len(nums)
+        begin_pos = 0
+        end_pos = 0
+        while i < n - 1:
+            if nums[i + 1] < nums[i]:
+                begin_pos = i
+                break
+            i += 1
+        i = n - 1
+        while i > 0:
+            if nums[i - 1] > nums[i]:
+                end_pos = i
+                break
+            i -= 1
+        if end_pos == begin_pos:
+            return 0
+        min1 = min(nums[begin_pos:end_pos + 1])
+        max1 = max(nums[begin_pos:end_pos + 1])
+        i = begin_pos
+        while i >= 0:
+            if nums[i] > min1:
+                begin_pos = i
+            i -= 1
+        i = end_pos
+        while i < n:
+            if nums[i] < max1:
+                end_pos = i
+            i += 1
+        else:
+            return end_pos - begin_pos + 1, end_pos, begin_pos
+
+    def findUnsortedSubarray1(self, nums):
+        from copy import deepcopy
+        anums = deepcopy(nums)
+        anums = sorted(anums)
+        start = len(anums)
+        end = 0
+        for i in range(len(anums)):
+            if nums[i] != anums[i]:
+                start = min(start, i)
+                end = max(end, i)
+        return (end - start + 1) if end >= start else 0
+
+    def findUnsortedSubarray2(self, nums):
+        l = len(nums)
+        r = 0
+        stack = []
+        for i in range(len(nums)):
+            while len(stack) != 0 and nums[stack[-1]] > nums[i]:
+                l = min(l, stack.pop())
+            stack.append(i)
+        stack = []
+        while i >= 0:
+            while len(stack) != 0 and nums[stack[-1]] < nums[i]:
+                r = max(r, stack.pop())
+            stack.append(i)
+            i -= 1
+        return (r - l + 1) if r > l else 0
+
+
 if __name__ == '__main__':
-    print Solution7().maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])
-    print Solution7().maxSubArray([1])
-    print Solution7().maxSubArray([-2, 1])
-    print Solution7().maxSubArray([-2, -2])
-    print Solution7().maxSubArray([-4, -2, -1])
-    print Solution7().maxSubArray([0, -3, 1, 1])
+    print Solution8().findUnsortedSubarray2([2, 6, 4, 8, 10, 9, 15])  # 5
+    print Solution8().findUnsortedSubarray2([2, 1])  # 2
+    print Solution8().findUnsortedSubarray2([1, 2, 3, 4])  # 0
+    print Solution8().findUnsortedSubarray2([1, 3, 2, 2, 2])  # 4
+    print Solution8().findUnsortedSubarray2([1, 3, 2, 3, 3])  # 2
+    print Solution8().findUnsortedSubarray2([1, 2, 4, 5, 3])  # 3
+    # print Solution7().maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])
+    # print Solution7().maxSubArray([1])
+    # print Solution7().maxSubArray([-2, 1])
+    # print Solution7().maxSubArray([-2, -2])
+    # print Solution7().maxSubArray([-4, -2, -1])
+    # print Solution7().maxSubArray([0, -3, 1, 1])
 # print Solution6().maxProfit1([7, 1, 5, 3, 6, 4])  # 5
 # print Solution6().maxProfit1([1, 2])  # 1
 # print Solution6().maxProfit1([])  # 0
