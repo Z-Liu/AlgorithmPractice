@@ -42,3 +42,44 @@ class Solution(object):
         head.next.next = head
         head.next = None
         return p
+
+
+# https://leetcode.com/problems/merge-two-sorted-lists/description/
+class Solution(object):
+    def mergeTwoLists(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        candidate1 = l1
+        candidate2 = l2
+        if candidate1:
+            if candidate2:
+                if candidate1.val < candidate2.val:
+                    ret = candidate1
+                else:
+                    ret = candidate2
+            else:
+                ret = candidate1
+        else:
+            ret = candidate2
+        new_curr = ListNode(None)
+        while candidate1 and candidate2:
+            if candidate1.val < candidate2.val:
+                new_curr.next = candidate1
+                new_curr = new_curr.next
+                candidate1 = candidate1.next
+            else:
+                new_curr.next = candidate2
+                new_curr = new_curr.next
+                candidate2 = candidate2.next
+        while candidate1:
+            new_curr.next = candidate1
+            new_curr = new_curr.next
+            candidate1 = candidate1.next
+        while candidate2:
+            new_curr.next = candidate2
+            new_curr = new_curr.next
+            candidate2 = candidate2.next
+        return ret
