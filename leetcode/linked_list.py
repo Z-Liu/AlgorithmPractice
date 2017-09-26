@@ -113,3 +113,20 @@ class Solution(object):
             slow = slow.next
             fast = fast.next.next
         return True
+
+
+class Solution(object):
+    def isPalindrome(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        if head is None:
+            return True
+        curr = head
+        alist = []
+        while curr is not None:
+            alist.append(curr.val)
+            curr = curr.next
+        length = len(alist)
+        return all(alist[i] == alist[length - 1 - i] for i in range(length / 2))
