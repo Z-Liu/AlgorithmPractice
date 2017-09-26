@@ -36,7 +36,7 @@ class Solution(object):
         return prev
 
     def reverseList2(self, head):
-        if head == None or head.next == None:
+        if head is None or head.next is None:
             return head
         p = self.reverseList2(head.next)
         head.next.next = head
@@ -83,3 +83,33 @@ class Solution(object):
             new_curr = new_curr.next
             candidate2 = candidate2.next
         return ret
+
+
+# https://leetcode.com/problems/linked-list-cycle/description/
+class Solution(object):
+    def hasCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        passed_nodes = set()
+        curr = head
+        while curr:
+            passed_nodes.add(curr)
+            if curr.next not in passed_nodes:
+                curr = curr.next
+            else:
+                return True
+        return False
+
+    def hasCycle1(self, head):
+        if head is None or head.next is None:
+            return False
+        slow = head
+        fast = head.next
+        while slow != fast:
+            if fast is None or fast.next is not None:
+                return False
+            slow = slow.next
+            fast = fast.next.next
+        return True
