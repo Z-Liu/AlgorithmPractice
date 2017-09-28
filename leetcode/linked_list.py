@@ -115,6 +115,7 @@ class Solution(object):
         return True
 
 
+# https://leetcode.com/problems/palindrome-linked-list/description/
 class Solution(object):
     def isPalindrome(self, head):
         """
@@ -130,3 +131,62 @@ class Solution(object):
             curr = curr.next
         length = len(alist)
         return all(alist[i] == alist[length - 1 - i] for i in range(length / 2))
+
+
+# https://leetcode.com/problems/intersection-of-two-linked-lists/description/
+class Solution(object):
+    def getIntersectionNode(self, headA, headB):
+        """
+        :type head1, head1: ListNode
+        :rtype: ListNode
+        """
+        currA = headA
+        currB = headB
+        lenA = 0
+        lenB = 0
+        while currA is not None:
+            currA = currA.next
+            lenA += 1
+        while currB is not None:
+            currB = currB.next
+            lenB += 1
+        currA = headA
+        currB = headB
+        if lenA > lenB:
+            diff = lenA - lenB
+            while diff != 0 and currA is not None:
+                currA = currA.next
+                diff -= 1
+        else:
+            diff = lenB - lenA
+            while diff != 0 and currB is not None:
+                currB = currB.next
+                diff -= 1
+        while currA is not None and currB is not None:
+            if currA == currB:
+                return currA
+            currA = currA.next
+            currB = currB.next
+        return
+
+    def getIntersectionNode(self, headA, headB):
+        """
+        :type head1, head1: ListNode
+        :rtype: ListNode
+        """
+        currA = headA
+        currB = headB
+        while currA != currB:
+            if currA is None:
+                currA = headB
+                currB = currB.next
+                continue
+            if currB is None:
+                currB = headA
+                currA = currA.next
+                continue
+            currA = currA.next
+            currB = currB.next
+        if currA is not None:
+            return currA
+        return
