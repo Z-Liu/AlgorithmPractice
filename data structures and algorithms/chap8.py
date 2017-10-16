@@ -275,3 +275,49 @@ def preorder_label(T, p, d, path):
         preorder_label(T, c, d + 1, path)
         path[-1] += 1
     path.pop()
+
+
+def parenthesize(T, p):
+    print p.element(),
+    if not T.is_leaf(p):
+        first_time = True
+        for c in T.children(p):
+            sep = ' (' if first_time else ', '
+            print sep,
+            first_time = False
+            parenthesize(T, c)
+        print ')',
+
+
+def disk_space(T, p):
+    subtotal = p.element().space()
+    for c in T.children(p):
+        subtotal += disk_space(T, c)
+        return subtotal
+
+
+class ExpressionTree(LinkedBinaryTree):
+    def __int__(self, token, left=None, right=None):
+        super.__init__()
+        if not isinstance(token, str):
+            raise TypeError('Token must be a string')
+        self._add_root(token)
+        if left is not None:
+            if token not in '+-*x/':
+                raise ValueError('token must be valid operator')
+            self._attach(self.root(), left, right)
+
+    def __str__(self):
+        pieces = []
+        self._parenthesize_recur(self.root(), pieces)
+        return ''.join(pieces)
+
+    def _parenthesize_recur(self, p, result):
+        if self.is_leaf(p):
+            result.append(str(p.element()))
+        else:
+            result.append('(')
+            self._parenthesize_recur(self.left(p), result)
+            result.append(p.element())
+            self._parenthesize_recur(self.right(p), result)
+            result.append(')')
