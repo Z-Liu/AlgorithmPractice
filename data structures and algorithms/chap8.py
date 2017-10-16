@@ -321,3 +321,37 @@ class ExpressionTree(LinkedBinaryTree):
             result.append(p.element())
             self._parenthesize_recur(self.right(p), result)
             result.append(')')
+
+    def evaluate(self):
+        return self._evaluate_recur(self.root())
+
+    def _evaluate_recur(self, p):
+        if self.is_leaf(p):
+            return float(p.element())
+        else:
+            op = p.element()
+            left_val = self._evaluate_recur(self.left(p))
+            right_val = self._evaluate_recur(self.right(p))
+            if op == '+':
+                return left_val + right_val
+            elif op == '-':
+                return left_val - right_val
+            elif op == '/':
+                return left_val / right_val
+            else:
+                return left_val * right_val
+
+
+def build_expression_tree(tokens):
+    S = []
+    for t in tokens:
+        if t in '+-x*/':
+            S.append(t)
+        elif t not in '()':
+            S.append(ExpressionTree(t))
+        elif t == ')':
+            right = S.pop()
+            op = S.pop()
+            left = S.pop()
+            S.append(ExpressionTree(op, left, right))
+    return S.pop()
