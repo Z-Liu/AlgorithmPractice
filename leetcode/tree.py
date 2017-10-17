@@ -1,4 +1,5 @@
 # coding: utf-8
+# https://leetcode.com/problems/merge-two-binary-trees/description/
 # Definition for a binary tree node.
 class TreeNode(object):
     def __init__(self, x):
@@ -60,3 +61,29 @@ class Solution(object):
             else:
                 stack.append((t[0].right, t[1].right))
         return t1
+
+
+# https://leetcode.com/problems/maximum-depth-of-binary-tree/description/
+class Solution(object):
+    def maxDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        current_layer = []
+        count = 0
+        if root:
+            current_layer.append(root)
+        while True:
+            next_layer = []
+            if current_layer:
+                count += 1
+                for i in current_layer:
+                    if i.left:
+                        next_layer.append(i.left)
+                    if i.right:
+                        next_layer.append(i.right)
+                current_layer = next_layer
+            else:
+                break
+        return count
