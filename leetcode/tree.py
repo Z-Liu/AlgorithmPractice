@@ -1,4 +1,7 @@
 # coding: utf-8
+from Queue import Queue
+
+
 # https://leetcode.com/problems/merge-two-binary-trees/description/
 # Definition for a binary tree node.
 class TreeNode(object):
@@ -87,3 +90,32 @@ class Solution(object):
             else:
                 break
         return count
+
+
+# https://leetcode.com/problems/invert-binary-tree/description/
+class Solution(object):
+    def invertTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        if root:
+            if root.left:
+                Solution().invertTree(root.left)
+            if root.right:
+                Solution().invertTree(root.right)
+            root.left, root.right = root.right, root.left
+        return root
+
+    def invertTree1(self, root):
+        if root is None: return
+        queue = Queue()
+        queue.put(root)
+        while not queue.empty():
+            current = queue.get()
+            current.left, current.right = current.right, current.left
+            if current.left:
+                queue.put(current.left)
+            if current.right:
+                queue.put(current.right)
+        return root
