@@ -119,3 +119,21 @@ class Solution(object):
             if current.right:
                 queue.put(current.right)
         return root
+
+
+# https://leetcode.com/problems/convert-bst-to-greater-tree/description/
+class Solution(object):
+    sum1 = 0
+
+    def convertBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        if root is None:
+            return
+        self.convertBST(root.right)
+        root.val += self.sum1
+        self.sum1 = root.val
+        self.convertBST(root.left)
+        return root
