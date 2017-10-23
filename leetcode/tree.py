@@ -153,3 +153,78 @@ class Solution(object):
         root.left = self.sortedArrayToBST(nums[:mid])
         root.right = self.sortedArrayToBST(nums[mid + 1:])
         return root
+
+
+# https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/description/
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def sortedListToBST(self, head):
+        """
+        :type head: ListNode
+        :rtype: TreeNode
+        """
+        if head is None:
+            return
+        if head.next is None:
+            return TreeNode(head.val)
+        leng = self.getLength(head)
+        mid_node = self.getNode(head, leng // 2)
+        root = TreeNode(mid_node.val)
+        self.setNode(head, leng // 2)
+        root.left = self.sortedListToBST(head)
+        root.right = self.sortedListToBST(mid_node.next)
+        return root
+
+    def getLength(self, head):
+        ret = 0
+        while head is not None:
+            head = head.next
+            ret += 1
+        return ret
+
+    def getNode(self, head, pos):
+        target = 0
+        while head is not None and target < pos:
+            head = head.next
+            target += 1
+        return head
+
+    def setNode(self, head, pos):
+        target = 0
+        temp = None
+        while head is not None and target < pos:
+            temp = head
+            head = head.next
+            target += 1
+        if temp is not None:
+            temp.next = None
+
+    def sortedListToBST1(self, head):
+        if head is None:
+            return
+        return self.toBST(head, None)
+
+    def toBST(self, head, tail):
+        slow = head
+        fast = head
+        if head == tail:
+            return
+        while fast != tail and fast.next != tail:
+            fast = fast.next.next
+            slow = slow.next
+        thead = TreeNode(slow.val)
+        thead.left = self.toBST(head, slow)
+        thead.right = self.toBST(slow.next, tail)
+        return thead
