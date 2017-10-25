@@ -228,3 +228,62 @@ class Solution(object):
         thead.left = self.toBST(head, slow)
         thead.right = self.toBST(slow.next, tail)
         return thead
+
+
+# https://leetcode.com/problems/symmetric-tree/description/
+class Solution(object):
+    sym = True
+
+    def isSymmetric(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if root is None:
+            return True
+        return self.symmetric(root.left, root.right)
+
+    def symmetric(self, leftr, rightr):
+        if leftr is None and rightr is None:
+            return self.sym
+        if rightr is None and leftr is not None:
+            self.sym = False
+            return self.sym
+        if leftr is None and rightr is not None:
+            self.sym = False
+            return self.sym
+        if leftr.val != rightr.val:
+            self.sym = False
+            return self.sym
+        self.symmetric(leftr.left, rightr.right)
+        self.symmetric(leftr.right, rightr.left)
+        return self.sym
+
+    def isSymmetric(self, root):
+        return self.isMirror(root, root)
+
+    def isMirror(self, t1, t2):
+        if t1 is None and t2 is None:
+            return True
+        if t1 is None or t2 is None:
+            return False
+        return t1.val == t2.val and self.isMirror(t1.right, t2.left) and self.isMirror(t1.left, t2.right)
+
+    def isSymmetric(self, root):
+        q = Queue()
+        q.put(root)
+        q.put(root)
+        while not q.empty():
+            t1 = q.get()
+            t2 = q.get()
+            if t1 is None and t2 is None:
+                continue
+            if t1 is None or t2 is None:
+                return False
+            if t1.val != t2.val:
+                return False
+            q.put(t1.left)
+            q.put(t2.right)
+            q.put(t1.right)
+            q.put(t2.left)
+        return True
