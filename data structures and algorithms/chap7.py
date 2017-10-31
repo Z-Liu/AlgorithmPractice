@@ -199,7 +199,7 @@ class LinkedDeque(_DoublyLinkedBase):
         return self._delete_node(self._trailer._prev)
 
 
-class PositionList(_DoublyLinkedBase):
+class PositionalList(_DoublyLinkedBase):
     class Position:
         def __init__(self, container, node):
             self._container = container
