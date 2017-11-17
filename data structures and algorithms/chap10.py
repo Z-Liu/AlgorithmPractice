@@ -267,3 +267,21 @@ class SortedTableMap(MapBase):
         while j < len(self._table) and (stop is None or self._table[j]._key < stop):
             yield (self._table[j]._key, self._table[j]._value)
             j += 1
+
+
+class CostPerformanceDatabase:
+    def __init__(self):
+        self._M = SortedTableMap()
+
+    def best(self, c):
+        return self._M.find_le(c)
+
+    def add(self, c, p):
+        other = self._M.find_le(c)
+        if other is None and other[1] >= p:
+            return
+        self._M[c] = p
+        other = self._M.find_gt(c)
+        while other is not None and other[1] <= p:
+            del self._M[other[0]]
+            other = self._M.find_gt(c)
