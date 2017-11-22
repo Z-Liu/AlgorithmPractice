@@ -99,3 +99,68 @@ class Solution(object):
             if i in dict2:
                 res.extend([i] * min(dict1[i], dict2[i]))
         return res
+
+
+# https://leetcode.com/problems/happy-number/description/
+class Solution(object):
+    set1 = set()
+
+    def isHappy(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        sum1 = 0
+        for s in list(str(n)):
+            sum1 += (int(s)) ** 2
+        if sum1 == 1:
+            Solution.set1 = set()
+            return True
+        if sum1 in Solution.set1:
+            Solution.set1 = set()
+            return False
+        Solution.set1.add(sum1)
+        return self.isHappy(sum1)
+
+
+class Solution(object):
+    def countPrimes(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        list1 = []
+        for number in range(2, n):
+            end_pos = 0
+            for i in list1:
+                if number % i == 0:
+                    break
+            else:
+                list1.append(number)
+        return len(list1)
+
+    def coutPrimes1(self, n):
+        is_prime = [True] * n
+        i = 2
+        while i ** 2 < n:
+            if is_prime[i]:
+                j = i ** 2
+                while j < n:
+                    is_prime[j] = False
+                    j += i
+            i += 1
+        return max(sum(1 for i in is_prime if i is True) - 2, 0)
+
+    def countPrimes2(self, n):
+        not_prime = [False] * n
+        count = 0
+        i = 2
+        while i < n:
+            if not_prime[i] is False:
+                count += 1
+                j = 2
+                while i * j < n:
+                    not_prime[i * j] = True
+                    j += 1
+            i += 1
+        return count
