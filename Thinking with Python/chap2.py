@@ -22,13 +22,27 @@ class Problem3:
         return [digit + string for digit in self.generate_string1(1) for string in self.generate_string1(n - 1)]
 
 
+class TestProblem3(unittest.TestCase):
+    def test_checks_generated_string(self):
+        string_list = Problem3().generate_string(4)
+        self.assertEqual(len(string_list), 2 ** 4)
+        self.assertTrue('1111' in string_list)
+
+
+class Problem4:
+    def generate_string(self, n, k):
+        if n == 0:
+            return []
+        if n == 1:
+            return [str(i) for i in range(k)]
+        return [str(i) + j for i in range(k) for j in self.generate_string(n - 1, k)]
+
+
+class TestProblem4(unittest.TestCase):
+    def test_checks_generated_string(self):
+        string_list = Problem4().generate_string(10, 2)
+        self.assertEqual(len(string_list), 2 ** 10)
+
+
 if __name__ == '__main__':
-    class TestProblem3(unittest.TestCase):
-        def test_checks_gerated_string_length(self):
-            string = Problem3().generate_string(4)
-            self.assertTrue(len(string) == 2 ** 4)
-            self.assertTrue('1111' in string)
-
-
-    print(Problem3().generate_string(4))
     unittest.main()
