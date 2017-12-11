@@ -119,11 +119,10 @@ class ListArray():
 
 
 if __name__ == '__main__':
-    print ListArray.binary_search([2], 2, 0, 0)
-    print ListArray.binary_search([1, 2], 2, 0, 1)
-    print ListArray.binary_search([1, 2, 3, 7, 10], 2, 0, 4)
-    print ListArray.binary_search([1, 2, 3, 7, 10], 12, 0, 4)
-    print ListArray.binary_search([1, 2, 3], 7, 0, 2)
+    print(ListArray.binary_search([2], 2, 0, 0))
+    print(ListArray.binary_search([1, 2, 3, 7, 10], 2, 0, 4))
+    print(ListArray.binary_search([1, 2, 3, 7, 10], 12, 0, 4))
+    print(ListArray.binary_search([1, 2, 3], 7, 0, 2))
     # print ListArray.factorial(5)
     # print ListArray.find_largest_contiguous_subarray([-1, -3, 5, 7, 2, -10, 3, 5, 7])
     # print ListArray.find_largest_contiguous_subarray([-1, -3, 5, 7, 2, -10, 3, 5, 7, -6, 8, -1])
