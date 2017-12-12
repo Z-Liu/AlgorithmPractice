@@ -57,3 +57,16 @@ def divideBy2(decNumber):
     while not remstack.isEmpty():
         binString = binString + str(remstack.pop())
     return binString
+
+
+def baseConverter(decNumber, base):
+    digits = '0123456789ABCDEF'
+    remstack = Stack()
+    while decNumber > 0:
+        rem = decNumber % base
+        remstack.push(rem)
+        decNumber //= base
+    newString = ''
+    while not remstack.isEmpty():
+        newString += digits[remstack.pop()]
+    return newString
