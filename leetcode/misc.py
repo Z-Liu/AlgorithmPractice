@@ -24,3 +24,32 @@ class Solution(object):
             res += ord(s[i]) - ord('A') + 1
             i += 1
         return res
+
+
+# https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        leftP = 0
+        rightP = 0
+        profit = 0
+        while rightP < len(prices):
+            while rightP < len(prices) - 1 and prices[rightP] < prices[rightP + 1]:
+                rightP += 1
+            else:
+                profit += prices[rightP] - prices[leftP]
+                leftP = rightP + 1
+            rightP += 1
+        return profit
+
+    def maxProfit1(self, prices):
+        profit = 0
+        i = 1
+        while i < len(prices):
+            if prices[i - 1] < prices[i]:
+                profit += prices[i] - prices[i - 1]
+            i += 1
+        return profit
