@@ -49,6 +49,21 @@ class Solution(object):
         return res
 
 
+# https://leetcode.com/problems/first-unique-character-in-a-string/description/
+class Solution(object):
+    def firstUniqChar(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        i = 0
+        while i < len(s):
+            if s[i] not in s[:i] and s[i] not in s[i + 1:]:
+                return i
+            i += 1
+        return -1
+
+
 if __name__ == '__main__':
     print(Solution().isValid('()[]{}'))
     print(Solution().isValid('([)]'))

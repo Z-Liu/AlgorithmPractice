@@ -133,10 +133,10 @@ class Solution6(object):
             bottom_numbers[0] = prices[0]
         for i in range(1, n - 1):
             if prices[i - 1] >= prices[i] < prices[i + 1] or prices[
-                        i - 1] > prices[i] <= prices[i + 1]:
+                i - 1] > prices[i] <= prices[i + 1]:
                 bottom_numbers[i] = prices[i]
             if prices[i - 1] <= prices[i] > prices[i + 1] or prices[
-                        i - 1] < prices[i] >= prices[i + 1]:
+                i - 1] < prices[i] >= prices[i + 1]:
                 top_numbers[i] = prices[i]
         if prices[n - 2] < prices[n - 1]:
             top_numbers[n - 1] = prices[n - 1]
@@ -248,13 +248,48 @@ class Solution8(object):
         return (r - l + 1) if r > l else 0
 
 
+# https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        leftP = 0
+        rightP = 0
+        profit = 0
+        while rightP < len(prices):
+            while rightP < len(prices) - 1 and prices[rightP] < prices[rightP + 1]:
+                rightP += 1
+            else:
+                profit += prices[rightP] - prices[leftP]
+                leftP = rightP + 1
+            rightP += 1
+        return profit
+
+    def maxProfit1(self, prices):
+        profit = 0
+        i = 1
+        while i < len(prices):
+            if prices[i - 1] < prices[i]:
+                profit += prices[i] - prices[i - 1]
+            i += 1
+        return profit
+
+
 if __name__ == '__main__':
-    print Solution8().findUnsortedSubarray2([2, 6, 4, 8, 10, 9, 15])  # 5
-    print Solution8().findUnsortedSubarray2([2, 1])  # 2
-    print Solution8().findUnsortedSubarray2([1, 2, 3, 4])  # 0
-    print Solution8().findUnsortedSubarray2([1, 3, 2, 2, 2])  # 4
-    print Solution8().findUnsortedSubarray2([1, 3, 2, 3, 3])  # 2
-    print Solution8().findUnsortedSubarray2([1, 2, 4, 5, 3])  # 3
+    print
+    Solution8().findUnsortedSubarray2([2, 6, 4, 8, 10, 9, 15])  # 5
+    print
+    Solution8().findUnsortedSubarray2([2, 1])  # 2
+    print
+    Solution8().findUnsortedSubarray2([1, 2, 3, 4])  # 0
+    print
+    Solution8().findUnsortedSubarray2([1, 3, 2, 2, 2])  # 4
+    print
+    Solution8().findUnsortedSubarray2([1, 3, 2, 3, 3])  # 2
+    print
+    Solution8().findUnsortedSubarray2([1, 2, 4, 5, 3])  # 3
     # print Solution7().maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])
     # print Solution7().maxSubArray([1])
     # print Solution7().maxSubArray([-2, 1])
